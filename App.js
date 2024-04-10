@@ -1,28 +1,22 @@
-import React from "react";
+import Start from "./components/start"; // Correct casing for component name
+import Chat from "./components/chat"; // Correct casing for component name
+
+// import react Navigation
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import StartScreen from "./StartScreen";
-import ChatScreen from "./ChatScreen";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-const Stack = createStackNavigator();
+// Create the navigator
+const Stack = createNativeStackNavigator();
 
-export default function App() {
+const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="StartScreen">
-        <Stack.Screen
-          name="StartScreen"
-          component={StartScreen}
-          options={{ title: "Chat App" }}
-        />
-        <Stack.Screen
-          name="ChatScreen"
-          component={ChatScreen}
-          options={({ route }) => ({
-            title: `Chat (${route.params.userName})`,
-          })}
-        />
+      <Stack.Navigator initialRouteName="Start">
+        <Stack.Screen name="Start" component={Start} />
+        <Stack.Screen name="Chat" component={Chat} />
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};
+
+export default App;
