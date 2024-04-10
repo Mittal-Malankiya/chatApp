@@ -170,8 +170,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "300",
     color: "#757083",
-    // textAlign: "left",
-    // alignSelf: "flex-start",
   },
 });
 
