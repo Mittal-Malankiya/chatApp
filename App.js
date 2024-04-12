@@ -4,7 +4,6 @@ import Chat from "./components/chat"; // Correct casing for component name
 // import react Navigation
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
 import { initializeApp } from "firebase/app";
 import {
   getFirestore,
@@ -22,7 +21,6 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   // Define a new state that represents the network connectivity status
   const connectionStatus = useNetInfo();
-
   // useEffect to display an alert popup if no internet connection
   useEffect(() => {
     if (connectionStatus.isConnected === false) {
@@ -41,7 +39,6 @@ const App = () => {
     messagingSenderId: "456976462183",
     appId: "1:456976462183:web:bfaa7c287bc3c467f67fc2",
   };
-
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
 
