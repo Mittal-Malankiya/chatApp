@@ -12,7 +12,9 @@ import { LogBox } from "react-native";
 
 // Create the navigator
 const Stack = createNativeStackNavigator();
+
 LogBox.ignoreLogs(["AsyncStorage has been extracted from"]);
+
 const App = () => {
   const firebaseConfig = {
     apiKey: "AIzaSyC5oOrKF8g4AdEPL5BSHzrXV3UPtO9evjE",
