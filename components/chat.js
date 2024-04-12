@@ -10,7 +10,8 @@ import {
 } from "firebase/firestore";
 
 const Chat = ({ db, route, navigation }) => {
-  const { name, background, id } = route.params;
+  const { userID } = route.params;
+  const { name, background } = route.params;
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -27,8 +28,6 @@ const Chat = ({ db, route, navigation }) => {
       });
       setMessages(newMessages);
     });
-
-    // Clean up code
     return () => {
       if (unsubMessages) unsubMessages();
     };
@@ -67,8 +66,8 @@ const Chat = ({ db, route, navigation }) => {
         renderBubble={renderBubble}
         onSend={(messages) => onSend(messages)}
         user={{
-          _id: id,
-          name,
+          _id: userID,
+          name: name,
         }}
       />
       {Platform.OS === "android" ? (
