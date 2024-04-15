@@ -50,8 +50,8 @@ A chatApp for mobile devices using React Native. The app provides users with a c
 - Run `expo start`
 
 ### Screenshots to represent the project
-![Alt Text](![image](https://github.com/Mittal-Malankiya/chatApp/assets/148976241/6be3dc66-021e-44ee-b348-e004034223c0)
-)
+![Screenshot](images/Screenshot%202024-04-15%20160720.png)
+
 
 ## Installation
 
