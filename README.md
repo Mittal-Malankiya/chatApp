@@ -10,7 +10,7 @@
 - 
 ## Description
 
-A chat app for mobile devices using React Native. The app provides users with a chat interface and options to share images, audios and location.
+A chatApp for mobile devices using React Native. The app provides users with a chat interface and options to share images, audios and location.
 
 ## Dependencies
 
@@ -49,18 +49,22 @@ A chat app for mobile devices using React Native. The app provides users with a 
 - Download Android Studio on your computer or use the Expo Go App on your mobile device
 - Run `expo start`
 
+### Screenshots to represent the project
+![Screenshot of the App](images/Screenshot%202024-04-15%20160720.png)
+
+
 ## Installation
 
 To run this project locally, follow these steps:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/chat-app.git
+   git clone https://github.com/your-username/chatApp.git
    ```
 
 2. Navigate into the project directory:
    ```bash
-   cd chat-app
+   cd chatApp
    ```
 
 3. Install dependencies:
