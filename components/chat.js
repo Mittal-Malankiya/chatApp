@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
 import { Bubble, GiftedChat, InputToolbar } from "react-native-gifted-chat";
-import { StyleSheet, View, Platform, KeyboardAvoidingView } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Platform,
+  KeyboardAvoidingView,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 import {
   onSnapshot,
   query,
@@ -9,12 +16,16 @@ import {
   addDoc,
 } from "firebase/firestore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import CustomActions from "./CustomActions";
+import MapView from "react-native-maps";
+import { Audio } from "expo-av";
 
 // Destructure name and background from route.params
 const Chat = ({ db, route, navigation, isConnected, storage }) => {
   const { userID } = route.params;
   const { name, background } = route.params;
   const [messages, setMessages] = useState([]);
+  let soundObject = null;
 
   let unsubMessages;
   // useEffect hook to set messages options
@@ -70,6 +81,11 @@ const Chat = ({ db, route, navigation, isConnected, storage }) => {
     addDoc(collection(db, "messages"), newMessages[0]);
   };
 
+  const renderInputToolbar = (props) => {
+    if (isConnected) return <InputToolbar {...props} />;
+    else return null;
+  };
+
   const renderBubble = (props) => {
     return (
       <Bubble
@@ -86,15 +102,70 @@ const Chat = ({ db, route, navigation, isConnected, storage }) => {
     );
   };
 
-  const renderInputToolbar = (props) => {
-    if (isConnected) return <InputToolbar {...props} />;
-    else return null;
+  const renderCustomActions = (props) => {
+    return <CustomActions storage={storage} {...props} userID={userID} />;
   };
 
-  // useEffect hook to set navigation options
-  useEffect(() => {
-    navigation.setOptions({ title: name });
-  }, []);
+  const renderCustomView = (props) => {
+    const { currentMessage } = props;
+    if (currentMessage.location) {
+      return (
+        <MapView
+          style={{ width: 150, height: 100, borderRadius: 13, margin: 3 }}
+          region={{
+            latitude: currentMessage.location.latitude,
+            longitude: currentMessage.location.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        />
+      );
+    }
+    return null;
+  };
+
+  const renderMessageAudio = (props) => {
+    return (
+      <View {...props}>
+        <TouchableOpacity
+          style={{ backgroundColor: "#FF0", borderRadius: 10, margin: 5 }}
+          onPress={async () => {
+            try {
+              // Log the URI for debugging
+              console.log(
+                "Playing sound from URI:",
+                props.currentMessage.audio
+              );
+
+              // Stop and unload any currently playing sound first
+              if (soundObject) {
+                await soundObject.unloadAsync();
+                soundObject.setOnPlaybackStatusUpdate(null); // Remove event listener
+                soundObject = null;
+              }
+
+              // Create a new sound object
+              soundObject = new Audio.Sound();
+              await soundObject.loadAsync({ uri: props.currentMessage.audio });
+              soundObject.setOnPlaybackStatusUpdate((status) => {
+                if (status.didJustFinish && !status.isLooping) {
+                  soundObject.unloadAsync(); // Unload after playing
+                }
+              });
+              await soundObject.playAsync();
+            } catch (error) {
+              console.error("Error playing sound:", error);
+              Alert.alert("Playback Error", "Failed to play sound.");
+            }
+          }}
+        >
+          <Text style={{ textAlign: "center", color: "black", padding: 5 }}>
+            Play Sound
+          </Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
 
   /* Render a View component with dynamic background color */
   return (
@@ -104,6 +175,9 @@ const Chat = ({ db, route, navigation, isConnected, storage }) => {
         renderBubble={renderBubble}
         renderInputToolbar={renderInputToolbar}
         onSend={(messages) => onSend(messages)}
+        renderActions={renderCustomActions}
+        renderCustomView={renderCustomView}
+        renderMessageAudio={renderMessageAudio}
         user={{
           _id: userID,
           name: name,
@@ -123,6 +197,18 @@ const Chat = ({ db, route, navigation, isConnected, storage }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  logoutButton: {
+    position: "absolute",
+    right: 0,
+    top: 0,
+    backgroundColor: "#C00",
+    padding: 10,
+    zIndex: 1,
+  },
+  logoutButtonText: {
+    color: "#FFF",
+    fontSize: 10,
   },
 });
 export default Chat;

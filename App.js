@@ -4,13 +4,15 @@ import Chat from "./components/chat"; // Correct casing for component name
 // import react Navigation
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+// import functions for initializing firestore
 import { initializeApp } from "firebase/app";
 import {
   getFirestore,
   disableNetwork,
   enableNetwork,
 } from "firebase/firestore";
-
+import { getStorage } from "firebase/storage";
 import { useNetInfo } from "@react-native-community/netinfo";
 import { useEffect } from "react";
 import { LogBox, Alert } from "react-native";
@@ -22,14 +24,6 @@ const App = () => {
   // Define a new state that represents the network connectivity status
   const connectionStatus = useNetInfo();
   // useEffect to display an alert popup if no internet connection
-  useEffect(() => {
-    if (connectionStatus.isConnected === false) {
-      Alert.alert("Connection lost!");
-      disableNetwork(db);
-    } else if (connectionStatus.isConnected === true) {
-      enableNetwork(db);
-    }
-  }, [connectionStatus.isConnected]);
 
   const firebaseConfig = {
     apiKey: "AIzaSyC5oOrKF8g4AdEPL5BSHzrXV3UPtO9evjE",
@@ -45,6 +39,18 @@ const App = () => {
   // Initialize Cloud Firestore and get a reference to the service
   const db = getFirestore(app);
 
+  // Initialize Firebase Storage handler
+  const storage = getStorage(app);
+
+  useEffect(() => {
+    if (connectionStatus.isConnected === false) {
+      Alert.alert("Connection lost!");
+      disableNetwork(db);
+    } else if (connectionStatus.isConnected === true) {
+      enableNetwork(db);
+    }
+  }, [connectionStatus.isConnected]);
+
   return (
     /* Wrap the app with NavigationContainer */
     <NavigationContainer>
@@ -56,6 +62,7 @@ const App = () => {
             <Chat
               isConnected={connectionStatus.isConnected}
               db={db}
+              storage={storage}
               {...props}
             />
           )}
