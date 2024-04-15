@@ -50,7 +50,7 @@ A chatApp for mobile devices using React Native. The app provides users with a c
 - Run `expo start`
 
 ### Screenshots to represent the project
-![Screenshot](images/Screenshot%202024-04-15%20160720.png)
+![alt text](images/Screenshot%202024-04-15%20160720.png)
 
 
 ## Installation
