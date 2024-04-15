@@ -12,6 +12,7 @@
 ## Description
 
 A chatApp for mobile devices using React Native. The app provides users with a chat interface and options to share images, audios and location.
+A chatApp for mobile devices using React Native. The app provides users with a chat interface and options to share images, audios and location.
 
 ## Dependencies
 
