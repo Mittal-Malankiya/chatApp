@@ -53,7 +53,8 @@ A chatApp for mobile devices using React Native. The app provides users with a c
 
 ### Screenshots to represent the project
 
-![alt text](chatApp.png)
+![alt text](img/image.png)
+![alt text](img/chatApp.png)
 
 ## Installation
 
