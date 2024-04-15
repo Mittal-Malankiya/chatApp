@@ -1,5 +1,13 @@
 # chatApp
 
+## Table of Contents
+
+- [Description](#description)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [References](#references)
+- 
 ## Description
 
 A chat app for mobile devices using React Native. The app provides users with a chat interface and options to share images, audios and location.
@@ -40,32 +48,6 @@ A chat app for mobile devices using React Native. The app provides users with a 
   - Initialize Firebase by copying and pasting the provided Firebase configuration into the App.js
 - Download Android Studio on your computer or use the Expo Go App on your mobile device
 - Run `expo start`
-
-To create an alternative format for your README that incorporates the references you've provided, you can structure it in a clear and organized manner. Here's an example format:
-
----
-
-# Chat App README
-
-This repository contains the source code for a chat app developed using React Native and Expo.
-
-## Table of Contents
-
-- [Description](#description)
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [References](#references)
-
-## Description
-
-The chat app is built using React Native and Expo, leveraging various libraries and services for chat functionality.
-
-## Features
-
-- Chat interface using Gifted Chat library
-- Image and location sharing using Expo ImagePicker and Expo Location
-- Data storage using Firebase Firestore and AsyncStorage
 
 ## Installation
 
