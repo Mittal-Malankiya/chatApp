@@ -177,7 +177,7 @@ const CustomActions = ({
     <TouchableOpacity
       accessible={true}
       accessibilityLabel="More options"
-      accessibilityHint="Lets you choose to send an image or your geolocation."
+      accessibilityHint="Lets you choose to send an image, your geolocation or record an audio."
       accessibilityRole="button"
       style={styles.container}
       onPress={onActionPress}
